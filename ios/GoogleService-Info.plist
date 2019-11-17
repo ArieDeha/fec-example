@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>964984300428-0qph7h8hpn9vi47d4co66i554t2kggm3.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.964984300428-0qph7h8hpn9vi47d4co66i554t2kggm3</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>964984300428-s54rr03ebnh1qa2ne19o6iv1r34iacqe.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCLtOkQ1DLwqDyvvzMSBEshkMRvz8yk-NU</string>
+	<key>GCM_SENDER_ID</key>
+	<string>964984300428</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>org.reactjs.native.example.FECApps</string>
+	<key>PROJECT_ID</key>
+	<string>fecticketing-c4064</string>
+	<key>STORAGE_BUCKET</key>
+	<string>fecticketing-c4064.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:964984300428:ios:75d4533dde62aa1da4aca9</string>
+	<key>DATABASE_URL</key>
+	<string>https://fecticketing-c4064.firebaseio.com</string>
+</dict>
+</plist>

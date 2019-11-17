@@ -20,6 +20,7 @@
 		6FC2FD6F0862F59C37A8B560 /* libPods-FECAppsTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CC14C53EEFBCFE2E8808ADD /* libPods-FECAppsTests.a */; };
 		7261EE93C9BBE8B95F4CC4B7 /* libPods-FECApps-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56A2719EA6CCED26C0447326 /* libPods-FECApps-tvOSTests.a */; };
 		7E06B183637554774D33B13F /* libPods-FECApps-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A950B79A4D5ABB1D4FBD4980 /* libPods-FECApps-tvOS.a */; };
+		C3FE4C972380FE0300AB444C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C3FE4C962380FE0300AB444C /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +62,7 @@
 		A950B79A4D5ABB1D4FBD4980 /* libPods-FECApps-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FECApps-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF6562476FF58E2E742E2469 /* Pods-FECApps.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FECApps.debug.xcconfig"; path = "Target Support Files/Pods-FECApps/Pods-FECApps.debug.xcconfig"; sourceTree = "<group>"; };
 		BB8657962CD289DFFEDCADEE /* Pods-FECApps-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FECApps-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-FECApps-tvOSTests/Pods-FECApps-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
+		C3FE4C962380FE0300AB444C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		CBBEF44F80DD1C8406C5682F /* Pods-FECApps.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FECApps.release.xcconfig"; path = "Target Support Files/Pods-FECApps/Pods-FECApps.release.xcconfig"; sourceTree = "<group>"; };
 		CE858E8BB2BAEB3F25714822 /* Pods-FECApps-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FECApps-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-FECApps-tvOSTests/Pods-FECApps-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		DBE8DD28BDE89679A05E132C /* Pods-FECAppsTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FECAppsTests.debug.xcconfig"; path = "Target Support Files/Pods-FECAppsTests/Pods-FECAppsTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -125,6 +127,7 @@
 		13B07FAE1A68108700A75B9A /* FECApps */ = {
 			isa = PBXGroup;
 			children = (
+				C3FE4C962380FE0300AB444C /* GoogleService-Info.plist */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -194,7 +197,6 @@
 				DBE8DD28BDE89679A05E132C /* Pods-FECAppsTests.debug.xcconfig */,
 				9968FF1C0B9B624AA8308C36 /* Pods-FECAppsTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -230,6 +232,7 @@
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
+				FD9E55C5883773D42D8291A1 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -308,6 +311,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -338,6 +342,7 @@
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
+				C3FE4C972380FE0300AB444C /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -511,6 +516,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "export RCT_METRO_PORT=\"${RCT_METRO_PORT:=8081}\"\necho \"export RCT_METRO_PORT=${RCT_METRO_PORT}\" > \"${SRCROOT}/../node_modules/react-native/scripts/.packager.env\"\nif [ -z \"${RCT_NO_LAUNCH_PACKAGER+xxx}\" ] ; then\n  if nc -w 5 -z localhost ${RCT_METRO_PORT} ; then\n    if ! curl -s \"http://localhost:${RCT_METRO_PORT}/status\" | grep -q \"packager-status:running\" ; then\n      echo \"Port ${RCT_METRO_PORT} already in use, packager is either not running or not running correctly\"\n      exit 2\n    fi\n  else\n    open \"$SRCROOT/../node_modules/react-native/scripts/launchPackager.command\" || echo \"Can't start packager automatically\"\n  fi\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		FD9E55C5883773D42D8291A1 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FECApps/Pods-FECApps-resources.sh",
+				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FECApps/Pods-FECApps-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
