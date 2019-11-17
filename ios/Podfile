@@ -35,6 +35,8 @@ target 'FECApps' do
   pod 'Firebase/Core'
   pod 'Firebase/Messaging'
   
+  pod 'RNImageCropPicker', :path => '../node_modules/react-native-image-crop-picker'
+  
   target 'FECAppsTests' do
     inherit! :search_paths
     # Pods for testing

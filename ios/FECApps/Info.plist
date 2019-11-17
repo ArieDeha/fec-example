@@ -54,6 +54,8 @@
 	<string></string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Need permission for enable micrhophone</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Need Permission for read your gallery</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>AntDesign.ttf</string>

@@ -35,6 +35,7 @@
 		A97A2DA5FB0B40D6B3DFFF3D /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EBE03E9901B644078BA5938B /* Foundation.ttf */; };
 		C22688C8CF2444B886214D7E /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 37842A74C6FE4DF2A7E74988 /* MaterialCommunityIcons.ttf */; };
 		C3FE4C972380FE0300AB444C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C3FE4C962380FE0300AB444C /* GoogleService-Info.plist */; };
+		C3FE4C9B2381129C00AB444C /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3FE4C9A2381129C00AB444C /* UserNotifications.framework */; };
 		D21A70B3BF284D6FB7FF9293 /* FontAwesome5_Solid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4A18CC17D8264BD39F899708 /* FontAwesome5_Solid.ttf */; };
 		DA23A9BF86124ABCA658E6A9 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 86A320C0C5BD4E3C86B1B393 /* SimpleLineIcons.ttf */; };
 /* End PBXBuildFile section */
@@ -91,6 +92,8 @@
 		C395D4C7AE9C43B0B4EE53A7 /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
 		C3FE4C962380FE0300AB444C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C3FE4C982381077600AB444C /* FECApps.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = FECApps.entitlements; path = FECApps/FECApps.entitlements; sourceTree = "<group>"; };
+		C3FE4C9A2381129C00AB444C /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
+		C3FE4C9C238112AD00AB444C /* libRSKImageCropper.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libRSKImageCropper.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		CBBEF44F80DD1C8406C5682F /* Pods-FECApps.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FECApps.release.xcconfig"; path = "Target Support Files/Pods-FECApps/Pods-FECApps.release.xcconfig"; sourceTree = "<group>"; };
 		CE858E8BB2BAEB3F25714822 /* Pods-FECApps-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FECApps-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-FECApps-tvOSTests/Pods-FECApps-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		D6B3393DBBFD4967A3B06326 /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Brands.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; };
@@ -117,6 +120,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C3FE4C9B2381129C00AB444C /* UserNotifications.framework in Frameworks */,
 				275AC1690C65DD6DF8197FC3 /* libPods-FECApps.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -176,6 +180,8 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C3FE4C9C238112AD00AB444C /* libRSKImageCropper.a */,
+				C3FE4C9A2381129C00AB444C /* UserNotifications.framework */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
 				77D665DF8F0A0A39FECC19E8 /* libPods-FECApps.a */,
