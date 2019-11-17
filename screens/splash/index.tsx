@@ -17,7 +17,6 @@ const SplashScreen = (props: NavigationStackScreenProps & TypeAllProps) => {
     const openCallback: callBackOpen = (data: NotificationOpen) => {
         showAlert(data.notification.title, data.notification.body)
         console.log(data)
-        props.navigation.navigate("ListTicket")
     }
   
     const openForeground: callBackForeground = (data) => {
@@ -44,6 +43,9 @@ const SplashScreen = (props: NavigationStackScreenProps & TypeAllProps) => {
         createNotificationListeners(openCallback, openForeground)
 
         checkLogin()
+        return () => {
+            createNotificationListeners(openCallback, openForeground)
+        }
     }, [])
 
     async function checkLogin() {
