@@ -5,6 +5,8 @@ import {Select, Input, Button} from 'react-native-ui-kitten'
 import {CustomNavigationProps} from '../types'
 import { NavigationStackScreenProps } from "react-navigation-stack";
 import UploadImage, {dataImage} from '../../components/UploadImage'
+import Geolocation from '@react-native-community/geolocation';
+import {ShowAlert} from '../../utils/ShowAlrert'
 
 const FormTicket = (props: NavigationStackScreenProps<CustomNavigationProps<null>>) => { 
     const data = [
@@ -51,6 +53,10 @@ const FormTicket = (props: NavigationStackScreenProps<CustomNavigationProps<null
 
     const onSubmit = () => {
         setCall(call + 1)
+        // get current location
+        Geolocation.getCurrentPosition(info => 
+            ShowAlert(info.coords.latitude, info.coords.longitude)
+        );
     }
 
     return(

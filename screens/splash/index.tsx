@@ -10,12 +10,12 @@ import {
     createChannel, checkPermission, 
     createNotificationListeners, callBackOpen, callBackForeground, NotificationOpen, callBackToken
   } from '../../service/Fcm'
-  import {Alert} from 'react-native'
+import {ShowAlert} from '../../utils/ShowAlrert'
 
 const SplashScreen = (props: NavigationStackScreenProps & TypeAllProps) => { 
 
     const openCallback: callBackOpen = (data: NotificationOpen) => {
-        showAlert(data.notification.title, data.notification.body)
+        ShowAlert(data.notification.title, data.notification.body)
         console.log(data)
     }
   
@@ -23,15 +23,7 @@ const SplashScreen = (props: NavigationStackScreenProps & TypeAllProps) => {
         console.log(data)
     }
   
-    const showAlert = (title, body): void => {
-        Alert.alert(
-          title, body,
-          [
-              { text: 'OK', onPress: () => console.log('OK Pressed') },
-          ],
-          { cancelable: false },
-        );
-    }
+    
 
     const callbackWhenGetToken: callBackToken = (newFcmToken: string) => {
         props.onSetFcm(newFcmToken)

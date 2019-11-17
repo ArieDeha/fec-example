@@ -8,6 +8,8 @@
 	<string>FECApps</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
+	<key>CFBundleGetInfoString</key>
+	<string></string>
 	<key>CFBundleIdentifier</key>
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
@@ -50,6 +52,10 @@
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>Need permission for enable camera</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Required for get location</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Required for get your location</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>
 	<key>NSMicrophoneUsageDescription</key>

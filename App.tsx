@@ -13,8 +13,8 @@ import {GoogleSignin} from '@react-native-community/google-signin'
 import store, {persistor} from './store'
 import { PersistGate } from "redux-persist/es/integration/react";
 import { Provider } from 'react-redux'
-import {StatusBar} from 'react-native'
-
+import {StatusBar, Platform} from 'react-native'
+import {CheckLocationPermission} from './service/Location'
 /** do not delete this */
 import 'react-native-gesture-handler'
 
@@ -22,6 +22,10 @@ const App = (): React.ReactFragment => {
 
   useEffect(() => {
     GoogleSignin.configure()
+    if (Platform.OS === 'android') {
+        CheckLocationPermission()
+    }
+    
   }, [])
   
     return (
