@@ -30,6 +30,7 @@ target 'FECApps' do
   pod 'GoogleSignIn', '~> 5.0.0'
   
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+  pod 'QBImagePickerController', :path => '../node_modules/react-native-image-crop-picker/ios/QBImagePicker/QBImagePickerController.podspec'
 
   target 'FECAppsTests' do
     inherit! :search_paths
