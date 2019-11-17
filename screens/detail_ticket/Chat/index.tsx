@@ -58,9 +58,11 @@ const Chat = ({ticketNumber: string}) => {
             setListState({...listState, loading: false, data: data})
 
         }
+
     return (
-        <View style={{flex: 1}}>
+        <View style={{flex: 1}} >
             <FlatList
+                // key={key}
                 data={listState.data}
                 extraData={listState}
                 refreshControl={
@@ -69,8 +71,8 @@ const Chat = ({ticketNumber: string}) => {
                     onRefresh={() => fetchUser(1)}
                     />
                 }
-                renderItem={({ item }) => <CustomRow {...item}/>}
-                keyExtractor={(item, index) => item.profile_image}
+                renderItem={({ index, item }) => <CustomRow key={index} {...item}/>}
+                keyExtractor={(item, index) => index.toString() + item.name}
                 // ItemSeparatorComponent={renderSeparator}
                 ListFooterComponent={renderFooter}
                 // onEndReachedThreshold={0.4}

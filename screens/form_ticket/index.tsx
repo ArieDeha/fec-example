@@ -1,14 +1,10 @@
 import styles from "./styles";
 import React from "react";
-import { View, ScrollView, Image } from "react-native";
+import { View, ScrollView } from "react-native";
 import {Select, Input, Button} from 'react-native-ui-kitten'
-import ImagePicker, {Image as img} from 'react-native-image-crop-picker';
 import {CustomNavigationProps} from '../types'
 import { NavigationStackScreenProps } from "react-navigation-stack";
-
-interface dataImage {
-    data: img[]
-}
+import UploadImage, {dataImage} from '../../components/UploadImage'
 
 const FormTicket = (props: NavigationStackScreenProps<CustomNavigationProps<null>>) => { 
     const data = [
@@ -23,8 +19,15 @@ const FormTicket = (props: NavigationStackScreenProps<CustomNavigationProps<null
     const [emailInput, setEmailInput] = React.useState("")
     const [invoiceInput, setInvoiceInput] = React.useState("")
     const [descInput, setDescInput] = React.useState("")
+
     const [dataImage, setDataImage] = React.useState<dataImage>({data: []} as dataImage)
-    
+    const [callBackData, setcallBackData] = React.useState<dataImage>({data: []});
+    const [call, setCall] = React.useState(0);
+
+    const callbackFunction = React.useCallback((data: dataImage) => {
+        console.log(data, "called callback")
+        setcallBackData(data)
+      }, [call]);
 
     const onSelectCase = (selectedOption: any) => {
         setCaseSelection(selectedOption);
@@ -46,27 +49,9 @@ const FormTicket = (props: NavigationStackScreenProps<CustomNavigationProps<null
         setDescInput(val)
     }
 
-    const uploadImage =() => {
-        ImagePicker.openPicker({
-            multiple: true
-        }).then(images => {
-            if(Array.isArray(images)) {
-                setDataImage({data: images})
-                console.log(images)
-            }
-        });
-
+    const onSubmit = () => {
+        setCall(call + 1)
     }
-
-    const removeImage = (idx: number) => {
-        let newImg = dataImage.data
-        var remove = newImg.filter(function(value, index, arr){
-            return index != idx;
-        });
-        setDataImage({data: remove})
-    }
-    React.useEffect(() => {
-    }, [])
 
     return(
         <View style={styles.container}>
@@ -120,21 +105,9 @@ const FormTicket = (props: NavigationStackScreenProps<CustomNavigationProps<null
                     />
                 </View>
 
-                <View>
-                    <View style={styles.inputContainer}>
-                        {dataImage.data.map((item, index) => {
-                            return (
-                                <View style={{marginRight: 5}}>
-                                    <Image key={item.path} source={{uri: item.path}} style={{width: 100, height: 100, marginBottom: 5}} width={100} height={100} resizeMode="cover" />
-                                    <Button key={index} status="danger" style={{bottom: 0, alignSelf: "center"}} onPress={() => removeImage(index)}>X</Button>
-                                </View>
-                            )
-                        })}
-                    </View>
-                    <Button onPress={() => uploadImage()} style={styles.input}>Upload Image</Button>
-                </View>
-                <View style={{marginBottom: 10, marginTop: 10}}>
-                    <Button style={styles.input}>Submit</Button>
+                <UploadImage action={callbackFunction}/>
+                <View style={{marginBottom: 10, marginTop: 10, marginLeft: 10}}>
+                    <Button style={styles.input} onPress={onSubmit}>Submit</Button>
                 </View>
             </ScrollView>
             

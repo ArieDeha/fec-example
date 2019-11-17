@@ -44,10 +44,6 @@ const SplashScreen = (props: NavigationStackScreenProps & TypeAllProps) => {
         createNotificationListeners(openCallback, openForeground)
 
         checkLogin()
-
-        return () => {
-            createNotificationListeners(openCallback, openForeground)
-        }
     }, [])
 
     async function checkLogin() {

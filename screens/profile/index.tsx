@@ -23,7 +23,7 @@ const Profile = (props: NavigationStackScreenProps & TypeAllProps) => {
 
     const showToast = (): void => {
       if (toastRef.current !== null) {
-          toastRef.current.show("You have been logout", 3)
+          toastRef.current.show(props.auth.name + " , you have been logout", 3)
       }
     }
 
@@ -33,14 +33,15 @@ const Profile = (props: NavigationStackScreenProps & TypeAllProps) => {
             <Image style={styles.avatar} source={{uri: props.auth.photo ? props.auth.photo: 'http://core-ruangguru.s3.amazonaws.com/assets/avatar/avatar%7C7934.png'}}/>
             <View style={styles.body}>
               <View style={styles.bodyContent}>
-                <Text style={styles.namingStyle}>{props.auth.name !== null? props.auth.name: 'uknow'}</Text>
-                {props.auth.familyName != "null" ? <Text style={styles.info}> {props.auth.familyName} </Text> : <Text/>}
-                {/* <Text style={styles.info}>{(props.auth.familyName === null)? 'not set': props.auth.familyName}</Text> */}
+                <Text style={styles.namingStyle}>{props.auth.email}</Text>
+                <Text style={styles.info}> {props.auth.familyName} </Text>
                 <Text style={styles.description}>Iam a FEC TEAM</Text>
                 <Button style={styles.buttonContainer} onPress={() => {
                   showToast()
-                  signOut(logoutCallback).catch(er => console.log(er))}}>Logout</Button>  
-                <Button onPress={() => {props.navigation.navigate("DetailTicket", {id: "12345"})}}>Navigate to detail</Button>        
+                  signOut(logoutCallback).catch(er => console.log(er))}}>
+                    Logout
+                </Button>  
+                {/* <Button onPress={() => {props.navigation.navigate("DetailTicket", {id: "12345"})}}>Navigate to detail</Button>         */}
               </View>
           </View>
           <Toast ref={toastRef}/>

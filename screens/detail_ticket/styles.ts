@@ -8,8 +8,6 @@ const styles = StyleSheet.create({
         
     },
     inputContainer: {
-      // width:250,
-      // height:45,
       marginBottom:20,
       marginLeft: 5,
       marginRight: 5,
