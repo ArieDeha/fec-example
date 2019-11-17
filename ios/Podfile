@@ -32,6 +32,9 @@ target 'FECApps' do
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
   pod 'QBImagePickerController', :path => '../node_modules/react-native-image-crop-picker/ios/QBImagePicker/QBImagePickerController.podspec'
 
+  pod 'Firebase/Core'
+  pod 'Firebase/Messaging'
+  
   target 'FECAppsTests' do
     inherit! :search_paths
     # Pods for testing

@@ -90,6 +90,7 @@
 		C1DBFB0B02B948709641A8A0 /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 		C395D4C7AE9C43B0B4EE53A7 /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
 		C3FE4C962380FE0300AB444C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		C3FE4C982381077600AB444C /* FECApps.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = FECApps.entitlements; path = FECApps/FECApps.entitlements; sourceTree = "<group>"; };
 		CBBEF44F80DD1C8406C5682F /* Pods-FECApps.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FECApps.release.xcconfig"; path = "Target Support Files/Pods-FECApps/Pods-FECApps.release.xcconfig"; sourceTree = "<group>"; };
 		CE858E8BB2BAEB3F25714822 /* Pods-FECApps-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FECApps-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-FECApps-tvOSTests/Pods-FECApps-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		D6B3393DBBFD4967A3B06326 /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Brands.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; };
@@ -159,6 +160,7 @@
 		13B07FAE1A68108700A75B9A /* FECApps */ = {
 			isa = PBXGroup;
 			children = (
+				C3FE4C982381077600AB444C /* FECApps.entitlements */,
 				C3FE4C962380FE0300AB444C /* GoogleService-Info.plist */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
@@ -350,6 +352,9 @@
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
 						TestTargetID = 13B07F861A680F5B00A75B9A;
+					};
+					13B07F861A680F5B00A75B9A = {
+						DevelopmentTeam = 6B8TW2225Q;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -757,8 +762,10 @@
 			baseConfigurationReference = AF6562476FF58E2E742E2469 /* Pods-FECApps.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = FECApps/FECApps.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
+				DEVELOPMENT_TEAM = 6B8TW2225Q;
 				INFOPLIST_FILE = FECApps/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -777,7 +784,9 @@
 			baseConfigurationReference = CBBEF44F80DD1C8406C5682F /* Pods-FECApps.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = FECApps/FECApps.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 6B8TW2225Q;
 				INFOPLIST_FILE = FECApps/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
