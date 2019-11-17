@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">FECApps</string>
+    <string name="default_notification_channel_id" translatable="false">fec_notif</string> 
 </resources>
