@@ -15,7 +15,7 @@ const DetailTicket = (props: NavigationStackScreenProps<CustomNavigationProps<Na
     const { navigation } = props;
     const { state: { params } } = navigation;
     const [selectedIndex, setSelectedIndex] = React.useState(0)
-
+    
     const shouldLoadComponent = (index) => {
         return index === selectedIndex;
     };

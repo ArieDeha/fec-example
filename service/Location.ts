@@ -25,7 +25,7 @@ async function LocationPermission() {
 
 export async function CheckLocationPermission() {
     try {
-        const hasPermission = await PermissionsAndroid.checkPermission(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION)
+        const hasPermission = await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION)
         if (!hasPermission) {
             LocationPermission()
         }

@@ -13,17 +13,20 @@ import Toast from 'react-native-easy-toast'
 
 const Profile = (props: NavigationStackScreenProps & TypeAllProps) => { 
     const logoutCallback = (result: signOutResult, err?: any): void => {
-        if (result === signOutResult.Succed ) {
-            props.onLogout()
-            props.navigation.navigate("LoginScreen")
-        }
+        if (result !== signOutResult.Succed ) {
+              console.log(result, err)
+        } 
+        
+        props.onLogout()
+        showToast(props.auth.name + " , you have been logout")
+        props.navigation.navigate("LoginScreen")
     }
 
     const toastRef = useRef<Toast>(null);
 
-    const showToast = (): void => {
+    const showToast = (param: string): void => {
       if (toastRef.current !== null) {
-          toastRef.current.show(props.auth.name + " , you have been logout", 3)
+          toastRef.current.show(param, 3)
       }
     }
 
@@ -37,7 +40,6 @@ const Profile = (props: NavigationStackScreenProps & TypeAllProps) => {
                 <Text style={styles.info}> {props.auth.familyName} </Text>
                 <Text style={styles.description}>Iam a FEC TEAM</Text>
                 <Button style={styles.buttonContainer} onPress={() => {
-                  showToast()
                   signOut(logoutCallback).catch(er => console.log(er))}}>
                     Logout
                 </Button>  
