@@ -5,6 +5,8 @@ import {
     LOGOUT,
     REQUEST_LOGIN,
     SET_FCM,
+    SET_ERROR,
+    REMOVE_ERROR,
     REHYDRATE
 } from './types'
 
@@ -21,7 +23,10 @@ export const initialState: AuthState = {
     name: null,
     photo: null,
     familyName: null,
-    givenName: null
+    givenName: null,
+    token: "",
+    err: null,
+    errState: false
 }
 
 export function authReducer(
@@ -54,7 +59,15 @@ export function authReducer(
             }
         case LOGOUT:
             return {
-                ...initialState
+                ...initialState, fcmToken: state.fcmToken
+            }
+        case SET_ERROR:
+            return{
+                ...state, err: action.meta.err, errState: true
+            }
+        case REMOVE_ERROR:
+            return {
+                ...state, err: '', errState: false
             }
         default:
             return state

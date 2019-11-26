@@ -4,17 +4,37 @@ import {Input, Button, Text} from 'react-native-ui-kitten'
 import styles from './styles'
 import DataComponent from './Chat'
 import UploadImage, {dataImage} from '../../components/UploadImage'
+import {detail} from './type'
 
-const Comments = () => {
+export interface submitComment {
+    images: dataImage
+    comment: string
+}
+
+export type submitCallBack = (this: void, data: submitComment) => void
+
+const Comments = (props: detail, callBack: submitCallBack) => {
 
     const [callBackData, setcallBackData] = React.useState<dataImage>({data: []});
     const [call, setCall] = React.useState(0);
+    const [text, setText] = React.useState("");
+    const [initiate, setInitiate] = React.useState(true);
 
     const callbackFunction = React.useCallback((data: dataImage) => {
-        // Do something with callBackData ...
-        console.log(data, "called callback")
         setcallBackData(data)
-      }, [call]);
+        if (!initiate) {
+            let submited: submitComment = {
+                images: data,
+                comment: text
+            }
+            callBack(submited)
+        }
+        setInitiate(false)
+    }, [call]);
+
+    const submit = () => {
+        setCall(call + 1)
+    }
 
     return(
         <View style={styles.commentsContainer}>
@@ -27,13 +47,12 @@ const Comments = () => {
                         style={styles.input}
                         textStyle={styles.inputStyle}
                         placeholder='Write your comment'
-                        // value={currentCommentText}
-                        // onChangeText={this.onCommentTextChange}
-                        // onSubmitEditing={this.handleTextSubmit}
-                />
+                        value={text}
+                        onChangeText={(val: string) => setText(val)}/>
+
                 <UploadImage action={callbackFunction}/>
-                <Button style={styles.input} onPress={() => setCall(call + 1)}>Submit</Button>
-                <DataComponent ticketNumber="XXXJJJ"/>
+                <Button style={styles.input} onPress={() => submit()}>Submit</Button>
+                {DataComponent(props)}
             </View>
     )
 }

@@ -18,7 +18,6 @@ export async function getToken(fcmToken: string, callbackToken: callBackToken) {
             callbackToken(fcmToken)
         }
     }
-    console.log("we got token", fcmToken)
 }
 
 export async function checkPermission(fcmToken: string, callbackToken: callBackToken) {

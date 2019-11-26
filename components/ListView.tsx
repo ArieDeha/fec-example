@@ -16,7 +16,7 @@ export const styles = StyleSheet.create({
         elevation: 2,
     },
     title: {
-        fontSize: 16,
+        fontSize: 12,
         color: '#000',
     },
     container_text: {
@@ -40,9 +40,14 @@ export const styles = StyleSheet.create({
 });
 
 export interface dataDetail {
-    profile_image: string,
-    display_name: string,
-    website_url: string,
+    caseName: string,
+    categoryName: string,
+    createdAt: string,
+    description: string,
+    handledBy: string,
+    id: string,
+    invoiceCode: string,
+    serial: string
     callback: (this: void, id: string,) => void
 }
 
@@ -62,22 +67,26 @@ const _onPress = (id: string, callback: (this: void, id: string) => void) => {
     callback(id)
 } 
 
-const CustomRow = ({profile_image, display_name, website_url, callback}: dataDetail) => (
-    <TouchableOpacity onPress={() => _onPress(profile_image, callback)}>
+const CustomRow = ({caseName, categoryName, createdAt, description, serial, invoiceCode, callback}: dataDetail) => (
+    <TouchableOpacity onPress={() => _onPress(serial, callback)}>
         <View style={styles.container}>
-            <Image source={{ uri: profile_image }} style={styles.photo} />
             <View style={styles.container_text}>
                 <View style={{width: "70%"}}>
                     <Text style={styles.title}>
-                        {display_name}
+                    {`ticket no: ${serial}`}
+                    </Text>
+                    <Text style={styles.title}>
+                    {`${categoryName}`}
                     </Text>
                     <Text style={styles.description}>
-                        {website_url}
+                        {
+                            (description.length > 50)?  `invoice: ${invoiceCode} ` + description.slice(0, 40) + "..." : `invoice: ${invoiceCode} ` + description 
+                        }
                     </Text>
                 </View>
                 
                 <Text style={styles.description}>
-                    "tanggalan"
+                    {createdAt.slice(0, 16)}
                 </Text>
             </View>
         </View>

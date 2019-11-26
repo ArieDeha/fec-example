@@ -1,6 +1,6 @@
 // action of auth
 
-import { AuthState, REQUEST_LOGIN, SET_FCM, LOGIN, LOGOUT, CheckAuthTypes } from './types'
+import { AuthState, REQUEST_LOGIN, SET_FCM, LOGIN, LOGOUT, CheckAuthTypes, SET_ERROR, REMOVE_ERROR } from './types'
 
 // TypeScript infers that this function is returning SendMessageAction
 export function login(newAuthState: AuthState): CheckAuthTypes {
@@ -24,6 +24,21 @@ export function set_fcm(fcmToken: string): CheckAuthTypes {
         fcmToken
       }
     }
+}
+
+export function set_err(err: string): CheckAuthTypes {
+  return {
+    type: SET_ERROR,
+    meta: {
+      err
+    }
+  }
+}
+
+export function remove_err(): CheckAuthTypes {
+  return {
+    type: REMOVE_ERROR
+  }
 }
 
 // TypeScript infers that this function is returning DeleteMessageAction

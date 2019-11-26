@@ -2,10 +2,24 @@ import { View } from "react-native"
 import React from 'react'
 import styles from './styles'
 import {Text} from 'react-native-ui-kitten'
+import {detail} from './type'
 
-const DataTicket = () => {
+const DataTicket: React.FC<detail> = (dataRes: detail) => {
     return (
         <View style={{flex: 1}}>
+
+            <View style={styles.containerProfileSetting}>
+                <Text
+                    style={styles.profileSetting}
+                    appearance='hint'>
+                    Serial
+                </Text>
+                <Text
+                    style={styles.profileSetting}>
+                    {dataRes.serial}
+                </Text>
+            </View>
+
             <View style={styles.containerProfileSetting}>
                 <Text
                     style={styles.profileSetting}
@@ -14,7 +28,7 @@ const DataTicket = () => {
                 </Text>
                 <Text
                     style={styles.profileSetting}>
-                    IN PROGRESS
+                    {(dataRes.history.length > 0 ) ? dataRes.history[0].status: "Undefined"}
                 </Text>
             </View>
 
@@ -26,7 +40,7 @@ const DataTicket = () => {
                 </Text>
                 <Text
                     style={styles.profileSetting}>
-                    Complaint
+                    {dataRes.caseName}
                 </Text>
             </View>
 
@@ -38,7 +52,7 @@ const DataTicket = () => {
                 </Text>
                 <Text
                     style={styles.profileSetting}>
-                    Package not active
+                    {dataRes.categoryName}
                 </Text>
             </View>
 
@@ -50,7 +64,7 @@ const DataTicket = () => {
                 </Text>
                 <Text
                     style={styles.profileSetting}>
-                    maulanaoktofitriadi@gmail.com
+                    {dataRes.email}
                 </Text>
             </View>
 
@@ -62,15 +76,14 @@ const DataTicket = () => {
                 </Text>
                 <Text
                     style={styles.profileSetting}>
-                    INV-KLY893443
+                     {dataRes.invoiceCode}
                 </Text>
             </View>
 
             <View style={styles.containerProfileSetting}>
                 <Text
                     style={styles.profileSetting}>
-                    Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
-                    Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem IpsumLorem Ipsum
+                     {dataRes.description}
                 </Text>
             </View>
         </View>

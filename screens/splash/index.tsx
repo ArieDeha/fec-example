@@ -23,8 +23,6 @@ const SplashScreen = (props: NavigationStackScreenProps & TypeAllProps) => {
         console.log(data)
     }
   
-    
-
     const callbackWhenGetToken: callBackToken = (newFcmToken: string) => {
         props.onSetFcm(newFcmToken)
     }
@@ -35,9 +33,6 @@ const SplashScreen = (props: NavigationStackScreenProps & TypeAllProps) => {
         createNotificationListeners(openCallback, openForeground)
 
         checkLogin()
-        return () => {
-            createNotificationListeners(openCallback, openForeground)
-        }
     }, [])
 
     async function checkLogin() {

@@ -6,31 +6,28 @@ import { SearchBar } from 'react-native-elements';
 import DataComponent, {callBack} from '../../components/Ticket'
 import {Icon} from 'react-native-elements'
 import {TabView, Tab} from 'react-native-ui-kitten'
+import {mapStateToProps, mapDispatchToProps, TypeAllProps} from '../../store/Props'
+import {connect} from 'react-redux';
 
 interface NavigationParams {
     text: string;
 }
 
-const ListTicket = (props: NavigationStackScreenProps<CustomNavigationProps<NavigationParams>>) => { 
+const ListTicket = (props: NavigationStackScreenProps<CustomNavigationProps<NavigationParams>> & TypeAllProps) => { 
     const { navigation } = props;
     const { state: { params } } = navigation;
     const[pageIndex, setPageIndex] = React.useState(0)
-    const[search, setSearch] = React.useState("")
+
+    const[searchOpen, setSearchOpen] = React.useState("")
+    const [searchOpenEnter, setSearchOpenEnter] = React.useState("")
+    
+
     const[searchProg, setSearchProg] = React.useState("")
+    const[searchProgEnter, setSearchProgEnter] = React.useState("")
+
     const[searchClosed, setSearchClosed] = React.useState("")
+    const[searchClosedEnter, setSearchClosedEnter] = React.useState("")
 
-
-    const updateSearch = (val: string) => {
-        setSearch(val)
-    }
-
-    const updateSearchProg = (val: string) => {
-        setSearchProg(val)
-    }
-
-    const updateSearchClosed = (val: string) => {
-        setSearchClosed(val)
-    }
 
     const callBack: callBack = (id: string): void => {
         navigation.navigate("DetailTicket", {id: id})
@@ -45,20 +42,20 @@ const ListTicket = (props: NavigationStackScreenProps<CustomNavigationProps<Navi
 
                 <Tab title='OPEN' style={{height: 50}}>
                     <View style={{flex: 1}}>
-                        <SearchBar placeholder="Type Here..." lightTheme round value={search} onChangeText={updateSearch} />
-                        <DataComponent callBack={callBack} />
+                        <SearchBar key="searchbar-open" placeholder="Type Here..." lightTheme round value={searchOpenEnter} onChangeText={(val) => setSearchOpenEnter(val)} onSubmitEditing={() => setSearchOpen(searchOpenEnter)} onClear={() => { setSearchOpenEnter(""); setSearchOpen("");}}/>
+                        <DataComponent key="open-key" callBack={callBack} status="NEW" token={props.auth.token} search={searchOpen} />
                     </View>
                 </Tab>
                 <Tab title='INPROG'>
                     <View style={{flex: 1}}>
-                        <SearchBar placeholder="Type Here..." lightTheme round value={searchProg} onChangeText={updateSearchProg} />
-                        <DataComponent callBack={callBack} />
+                        <SearchBar key="searchbar-prog" placeholder="Type Here..." lightTheme round value={searchProgEnter} onChangeText={(val) => setSearchProgEnter(val)} onSubmitEditing={() => setSearchProg(searchProgEnter)} onClear={() => { setSearchProgEnter(""); setSearchProg("");}}/>
+                        <DataComponent key="inprog-key" callBack={callBack} status="IN PROGRESS" token={props.auth.token} search={searchProg} />
                     </View>
-                </Tab>
+                </Tab> 
                 <Tab title='CLOSE'>
                     <View style={{flex: 1}}>
-                        <SearchBar placeholder="Type Here..." lightTheme round value={searchClosed} onChangeText={updateSearchClosed} />
-                        <DataComponent callBack={callBack} />
+                        <SearchBar key="searchbar-close" placeholder="Type Here..." lightTheme round value={searchClosedEnter} onChangeText={(val) => setSearchClosedEnter(val)} onSubmitEditing={() => setSearchClosed(searchClosedEnter)} onClear={() => { setSearchClosedEnter(""); setSearchClosed("");}}/>
+                        <DataComponent key="closed-key" callBack={callBack} status="DONE" token={props.auth.token} search={searchClosed} />
                     </View>
                 </Tab>
             </TabView>
@@ -97,5 +94,8 @@ ListTicket.navigationOptions = ({
       title: "My Ticket"
 });
 
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(ListTicket);
 
-export default ListTicket;

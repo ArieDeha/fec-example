@@ -2,13 +2,7 @@
 import React from 'react';
 import { View, Text, Image } from 'react-native';
 import styles from './styles'
-
-export interface dataChat {
-    profile_image: string,
-    name: string,
-    description: string
-    time: string
-}
+import {thread} from '../type'
 
 export const renderSeparator = () => {
     return (
@@ -22,9 +16,9 @@ export const renderSeparator = () => {
     );
 };
 
-const CustomRow = ({profile_image, name, description, time}: dataChat) => (
+const CustomRow = ({profilePictureUrl, name, description, createdAt}: thread) => (
     <View style={styles.container}>
-        <Image source={{ uri: profile_image }} style={styles.photo} />
+        <Image source={{ uri: profilePictureUrl }} style={styles.photo} />
         <View style={styles.container_text}>
             <View style={{width: "70%"}}>
                 <Text style={styles.title}>
@@ -36,7 +30,7 @@ const CustomRow = ({profile_image, name, description, time}: dataChat) => (
             </View>
             
             <Text style={styles.time}>
-                {time}
+                {createdAt}
             </Text>
         </View>
     </View>

@@ -5,6 +5,12 @@ const styles = StyleSheet.create({
       flex: 1,
       backgroundColor: "#ecf0f7",
     },
+    modalContainer: {
+      width: 200,
+      height: 200,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
     headerContainer: {
       justifyContent: 'center',
       alignItems: 'center',

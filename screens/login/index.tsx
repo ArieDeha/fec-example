@@ -5,6 +5,8 @@ import { NavigationStackScreenProps } from "react-navigation-stack";
 import {GoogleSigninButton } from '@react-native-community/google-signin';
 import signIn from '../../service/GoogleSignIn'
 import {AuthState} from '../../store/auth/types'
+import {Layout, Modal} from 'react-native-ui-kitten'
+
 // redux
 import {mapStateToProps, mapDispatchToProps, TypeAllProps} from '../../store/Props'
 import {connect} from 'react-redux';
@@ -15,6 +17,35 @@ import {
 
 const LoginScreen = (props: NavigationStackScreenProps & TypeAllProps) => {
     const [isLoginProcess, statIsLogin] = useState(false)
+    const [modalVisible, setModalVisible] = useState(false)
+
+    const renderModalElement = () => {
+        return (
+          <Layout
+            level='3'
+            style={styles.modalContainer}>
+            <Text>{(props.auth.err) ? props.auth.err : "cannot get error text"}</Text>
+            <Button onPress={() => props.onRemoveErr()}>Close</Button>
+          </Layout>
+        );
+      };
+    
+      React.useEffect(() => {
+
+        setModalVisible(props.auth.errState)
+
+        if (props.auth.errState) {
+            statIsLogin(false)
+        }
+
+        if (props.auth.token !== "") {
+            props.onRemoveErr()
+            props.navigation.navigate("ListTicket");
+        }
+
+    }, [props.auth.errState, props.auth.token])
+
+
 
     const googleLogin = () => {
          // login 
@@ -30,12 +61,12 @@ const LoginScreen = (props: NavigationStackScreenProps & TypeAllProps) => {
                     familyName: usr.familyName,
                     givenName: usr.givenName,
                     googleToken: data.user.idToken,
+                    fcmToken: props.auth.fcmToken,
                     loggedIn: true,
                 } as AuthState)
-                props.navigation.navigate("ListTicket");
+                
              } else {
                  statIsLogin(false)
-                 console.log(data.error)
              }
          })
     }
@@ -63,6 +94,9 @@ const LoginScreen = (props: NavigationStackScreenProps & TypeAllProps) => {
                     onPress={googleLogin}
                     disabled={isLoginProcess} />
             </View>
+            <Modal visible={modalVisible}>
+                {renderModalElement()}
+            </Modal>
         </View>
     )
 }
@@ -71,4 +105,3 @@ export default connect(
     mapStateToProps,
     mapDispatchToProps
   )(LoginScreen);
-
