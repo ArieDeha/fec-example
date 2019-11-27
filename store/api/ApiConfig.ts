@@ -1,4 +1,4 @@
-import axios, {AxiosStatic, AxiosInstance} from "axios";
+import axios, {AxiosInstance} from "axios";
 
 const baseURL = "https://gw-staging.ruangguru.com/fec-ticketing/"
 const getHeader = (token?: string) => ({

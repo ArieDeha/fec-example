@@ -13,7 +13,7 @@ export interface submitComment {
 
 export type submitCallBack = (this: void, data: submitComment) => void
 
-const Comments = (props: detail, callBack: submitCallBack) => {
+const Comments = (props: detail, callBack: submitCallBack, clearImage: boolean, loading: boolean) => {
 
     const [callBackData, setcallBackData] = React.useState<dataImage>({data: []});
     const [call, setCall] = React.useState(0);
@@ -36,6 +36,12 @@ const Comments = (props: detail, callBack: submitCallBack) => {
         setCall(call + 1)
     }
 
+    React.useEffect(() => {
+        if (clearImage) {
+            setcallBackData({data: []})
+        }
+    }, [clearImage])
+
     return(
         <View style={styles.commentsContainer}>
                 <Text
@@ -50,8 +56,9 @@ const Comments = (props: detail, callBack: submitCallBack) => {
                         value={text}
                         onChangeText={(val: string) => setText(val)}/>
 
-                <UploadImage action={callbackFunction}/>
-                <Button style={styles.input} onPress={() => submit()}>Submit</Button>
+                {/* <UploadImage action={callbackFunction}/> */}
+                {UploadImage(callbackFunction, clearImage, loading)}
+                <Button disabled={loading} style={styles.input} onPress={() => submit()}>Submit</Button>
                 {DataComponent(props)}
             </View>
     )

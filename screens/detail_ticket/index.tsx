@@ -1,15 +1,16 @@
 import React from 'react'
 import {CustomNavigationProps, Navigation} from '../types'
 import { NavigationStackScreenProps } from "react-navigation-stack";
-import { View, ScrollView, Image, Text } from 'react-native';
+import { View, ScrollView, Image, Text, ActivityIndicator } from 'react-native';
 import styles from './styles'
 import  {ViewPager, Layout, Modal, Button} from 'react-native-ui-kitten'
+import {Overlay} from 'react-native-elements'
 import Comments, {submitComment, submitCallBack} from './Comments'
 import DataTicket from './DataTicket'
 import {mapStateToProps, mapDispatchToProps, TypeAllProps} from '../../store/Props'
 import {connect} from 'react-redux';
 import dataDetail, {detail} from './type'
-import Api from '../../store/api/Ticket'
+import Api, {threadImage, submitThread, responseSubmitThread} from '../../store/api/Ticket'
 import ApiImage, { responseImage } from '../../store/api/Image'
 import {defaultProps} from "../../store/api/ApiConfig"
 import { AxiosResponse } from 'axios';
@@ -43,7 +44,10 @@ const DetailTicket = (props: NavigationStackScreenProps<CustomNavigationProps<Na
     const inisiateDataDetail: dataDetail = {data: inisiateDetail, loading: true, errorMsg: "", errorState: false}
     const [dataRes, setData] = React.useState<dataDetail>(inisiateDataDetail)
     const [modalVisible, setModalVisible] = React.useState(false)
-    
+    const [overlayVisible, setOverlayVisible] = React.useState(false)
+    const [submitMessage, setSubmitMessage] = React.useState("")
+    const [clearImage, setClearImage] = React.useState(false)
+
     const shouldLoadComponent = (index) => {
         return index === selectedIndex;
     };
@@ -60,7 +64,7 @@ const DetailTicket = (props: NavigationStackScreenProps<CustomNavigationProps<Na
         fetchData()
     }, [])
 
-    async function fetchData() {
+    async function fetchData(callback?: (this: void) => void) {
         const propsParams: defaultProps = {
             token: props.auth.token,
             callBackUnauthorize: callbackUnauthorize
@@ -71,25 +75,61 @@ const DetailTicket = (props: NavigationStackScreenProps<CustomNavigationProps<Na
         let res: Promise<AxiosResponse<dataDetail>> = ticket.getBySerial(serial)
         res.then(dt => {
             setData({...dt.data, loading: false, errorMsg: "", errorState: false})
+            console.log(dt.data.data.attachment)
+            if (callback) {
+                callback()
+            }
         }).catch(_ => {
             setData({ ...dataRes, loading: false, errorMsg: 'Something just went wrong'})
         })
     }
 
-    const callbackSubmit: submitCallBack = (data: submitComment) => {
-        console.log(data, "call from detail_ticket")
-
-        if (data.comment.length === 0) {
+    const callbackSubmit: submitCallBack = (dataSubmit: submitComment) => {
+        if (dataSubmit.comment.length === 0) {
             setModalVisible(true)
             setError("comment cannot empty")
             return
         }
+        
+        setData({...dataRes, loading: true})
 
-        uploadImages(data).then(res => console.log(res))
+        uploadImages(dataSubmit).then(res => {
+            let newSubmitForm: submitThread = {
+                serial: dataRes.data.serial,
+                description: dataSubmit.comment,
+                attachment: res
+            }
+            const propsParams: defaultProps = {
+                token: props.auth.token,
+                callBackUnauthorize: callbackUnauthorize
+            }
+            const thread = new Api(propsParams)
+            let post: Promise<AxiosResponse<responseSubmitThread>> = thread.postThread(newSubmitForm)
+            post.then(response => {
+                if (response.status !== 200) {
+                    setModalVisible(true)
+                    setError(`Create thread ${response.data.message} please contact administrator`)
+                    return
+                }
+                let callBackParams = (): void =>{
+                    setOverlayVisible(true)
+                    setSubmitMessage("successfully create thread")
+                    setClearImage(true)
+                }
+                fetchData(callBackParams)
+                
+            }).catch(_ => {
+                setModalVisible(true)
+                setError(`Create thread failed please contact administrator`)
+                setData({...dataRes, loading: false})
+
+            })
+
+        })
     }
 
-    async function uploadImages(data): Promise<string[]> {
-        let image: string[] = []
+    async function uploadImages(data: submitComment): Promise<threadImage[]> {
+        let image: threadImage[] = []
         let promises: Promise<AxiosResponse<responseImage>>[] = []
 
         if (data.images.data.length > 0) {
@@ -97,15 +137,22 @@ const DetailTicket = (props: NavigationStackScreenProps<CustomNavigationProps<Na
             data.images.data.forEach(element => {
                 promises.push(uploadAPI.upload(element))
             });
-            
             await Promise.all(promises).then(response => {
-                response.forEach(val => {
+                response.forEach((val, index) => {
                     const dataRes = val.data
                     if (dataRes.data.length > 0) {
-                        image.push(dataRes.data[0].fullpath)
+                        const dataImg = dataRes.data[0]
+                        image.push({
+                            file_type: data.images.data[index].mime,
+                            file_url: dataImg.fullpath
+                        })
                     }
                 })
-            }).catch(err => console.log(err))
+            }).catch(err => {
+                setModalVisible(true)
+                setError(`upload file failed`)
+                console.log(err)
+            })
 
             return image
         } else {
@@ -119,40 +166,50 @@ const DetailTicket = (props: NavigationStackScreenProps<CustomNavigationProps<Na
             bouncesZoom={false}
             alwaysBounceVertical={false}
             alwaysBounceHorizontal={false}>
-            
             <Modal visible={modalVisible}>
                 <Layout
-                    // level='3'
+                    level='3'
                     style={{justifyContent: 'center', alignItems: 'center', width: 200, height: 200, flex: 1}}>
                     <Text>{err}</Text>
                     <Button style={{marginTop: 50}} onPress={() => setModalVisible(false)}>Close</Button>
                 </Layout>
             </Modal>
-
             <View style={styles.header}>
-                <ViewPager
+                {(dataRes.data.attachment.length >0) && <ViewPager
                     selectedIndex={selectedIndex}
                     shouldLoadComponent={shouldLoadComponent}
                     onSelect={onSelect}>
-                    {/* gambarrr */}
-                    <Layout
-                        level='1'
-                        style={styles.tab}>
-                        <Image source={{uri: "https://cdn.pixabay.com/photo/2018/10/30/16/06/water-lily-3784022__340.jpg"}} resizeMode="cover" style={{width: "90%", height: "90%"}}/>
-                    </Layout>
-                    {dataRes.data.attachment.forEach((value, index) => {
-                        return(<Layout
-                            level={index.toString()}
+
+                        {dataRes.data.attachment.map((value, index) => {
+                        return (<Layout
+                            // level={index.toString()}
+                            key={index.toString()}
                             style={styles.tab}>
-                            <Image source={{uri: value.fileUrl}} resizeMode="cover" style={{width: "90%", height: "90%"}}/>
-                        </Layout>)
-                    })}
-                </ViewPager>
+                                <Image key={`image-${index.toString()}`} source={{uri: value.fileUrl}} resizeMode="cover" style={{width: "90%", height: "90%"}}/>
+                            </Layout>)
+                        })}
+                </ViewPager>}
+                
             </View>
             {/* <DataTicket dataRes={data.data}/> */}
             {DataTicket(dataRes.data)}
+            {(dataRes.loading) &&
+                <View style={styles.loading}>
+                    <ActivityIndicator size='large' />
+                </View> 
+            }
             {/* Comments */}
-            {Comments(dataRes.data, callbackSubmit)}
+            {Comments(dataRes.data, callbackSubmit, clearImage, dataRes.loading)}
+            <View>
+                <Overlay isVisible={overlayVisible} onBackdropPress={()=>setOverlayVisible(false)}>
+                    <View>
+                        <Text>{submitMessage}</Text>
+                        <Button onPress={()=>setOverlayVisible(false)}>Close</Button>
+                    </View>
+                </Overlay>
+            </View>
+           
+            
         </ScrollView>
             
     )

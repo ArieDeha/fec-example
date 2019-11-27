@@ -39,7 +39,7 @@ export default interface dataDetail {
     data: detail
     errorState?: boolean
     errorMsg?: string
-    loading?: boolean 
+    loading: boolean 
     message?: string
     status?: string
 }

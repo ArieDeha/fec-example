@@ -31,7 +31,7 @@ class Image {
             validateStatus: function (status: number) {
                 return status < 500; 
             },
-            timeout: 3000,
+            timeout: 30000,
             headers: {
                 'content-type': 'multipart/form-data'
             }

@@ -11,31 +11,12 @@ interface ListState {
 }
 
 const Chat = (props: detail) => {
-        
-        const [listState, setListState ] = React.useState<ListState>({loading: false, isRefreshing: false, data: [], error: null})
-
-        const renderFooter = () => {
-            if (!listState.loading) return null;
-            
-            return (
-                <ActivityIndicator/>
-            );
-        };
-        
-        React.useEffect(() => {
-            setListState({...listState, data: props.thread})
-        }, [])
-
-
     return (
         <View style={{flex: 1}} >
             <FlatList
-                data={listState.data}
-                extraData={listState}
+                data={props.thread}
                 renderItem={({ index, item }) => <CustomRow key={index} {...item}/>}
                 keyExtractor={(item, index) => index.toString() + item.name}
-                // ItemSeparatorComponent={renderSeparator}
-                ListFooterComponent={renderFooter}
                 onEndReachedThreshold={0.4}
                 />
         

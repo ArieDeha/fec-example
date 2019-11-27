@@ -9,9 +9,9 @@ export interface dataImage {
     data: img[]
 }
 
-type getDataImage = (this: void) => void
+type getDataImage = (this: void, data: dataImage) => void
 
-const UploadImage = ({action}) => {
+const UploadImage = (action: getDataImage, clearAllImage: boolean, loading: boolean) => {
     const [dataImage, setDataImage] = React.useState<dataImage>({data: []} as dataImage)
 
     const uploadImage = () => {
@@ -36,6 +36,12 @@ const UploadImage = ({action}) => {
         action(dataImage)
     }, [action]) 
 
+    React.useEffect(() => {
+        if (clearAllImage) {
+            setDataImage({data: []})
+        }
+    }, [clearAllImage])
+
     return(
         <View style={{flex: 1}} >
             <View style={styles.inputContainer}>
@@ -48,7 +54,7 @@ const UploadImage = ({action}) => {
                         )
                     })}
             </View>
-                <Button onPress={() => uploadImage()} style={styles.input}>Upload Image</Button>
+                <Button disabled={loading} onPress={() => uploadImage()} style={styles.input}>Upload Image</Button>
         </View>
     )
 }
